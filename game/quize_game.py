@@ -122,9 +122,9 @@ async def aho(massage: Message):
             animal_medium = random.choice(animals_medium)
             await massage.answer(f'Иии так твое тотемное животное это {animal_medium["name"]}'
                                  f'\n {animal_medium["about_animal"]}')
-            await massage.answer(replay_game,reply_markup=kk.replay)
-        elif points <=44:
+            await massage.answer(replay_game, reply_markup=kk.replay)
+        elif points <= 44:
             animal_max = random.choice(animals_max)
             await massage.answer(f'Иии так твое тотемное животное это {animal_max["name"]}'
                                  f'\n {animal_max["about_animal"]}')
-            await massage.answer(replay_game,reply_markup=kk.replay)
+            await massage.answer(replay_game, reply_markup=kk.replay)
