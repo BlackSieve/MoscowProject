@@ -1,11 +1,12 @@
 from aiogram import F, Router
 from aiogram.filters import CommandStart, Command
+
 from aiogram.types import Message
 import keyboard.keyboards as kb
 from text.url_photo import photo_random
 from text.offers import history_zoo, help_opekyn, start_hello, game_animal, give_photo, help_menu, information, feedback
 
-# from game.questions_game import questions1, questions2, questions3, questions4, questions5, questions6, questions7
+from app.database import edit_profile, create_profile
 
 router = Router()
 
@@ -13,6 +14,7 @@ router = Router()
 @router.message(CommandStart())
 async def start(massage: Message):
     await massage.answer(start_hello, reply_markup=kb.board)
+    await create_profile(user_id=massage.from_user.id)
     await massage.delete()
 
 
@@ -58,31 +60,9 @@ async def give_image(massage: Message):
 @router.message(F.text == 'Оставить отзыв')
 async def feedback(massage: Message):
     await massage.answer(feedback, reply_markup=kb.feedback)
-
-
-@router.message(F.text == 'Ещё раз!')
-async def replay_game(massage: Message):
-    await massage.answer('')
-    # доделать повтор игры
+    await edit_profile(user_id=massage.from_user.id)
 
 
 @router.message(F.text == 'Главное меню')
 async def back_menu(massage: Message):
     await massage.answer('Хорошо мой друг', reply_markup=kb.board)
-
-# @router.message(F.text == 'Старт!')
-# async def question1(massage: Message):
-#     global points
-#     await massage.answer(questions1, reply_markup=kb.answer_quize)
-#     if massage.text == 'A':
-#         points += 1
-#         await massage.answer(questions2, reply_markup=kb.answer_quize)
-#     elif massage.text == 'B':
-#         points += 2
-#         await massage.answer(questions2, reply_markup=kb.answer_quize)
-#     elif massage.text == 'C':
-#         points += 3
-#         await massage.answer(questions2, reply_markup=kb.answer_quize)
-#     elif massage.text == 'D':
-#         points += 4
-#         await massage.answer(questions2, reply_markup=kb.answer_quize)
