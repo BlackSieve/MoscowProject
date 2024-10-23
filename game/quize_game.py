@@ -128,3 +128,8 @@ async def aho(massage: Message):
             await massage.answer(f'Иии так твое тотемное животное это {animal_max["name"]}'
                                  f'\n {animal_max["about_animal"]}')
             await massage.answer(replay_game, reply_markup=kk.replay)
+
+
+@game.message(F.text == 'Ещё раз!')
+async def replay_game(massage: Message):
+    await massage.answer(massage.aho)
